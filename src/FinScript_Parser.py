@@ -33,7 +33,7 @@ class Parser:
             word = line.split()
             for wordNo, word in enumerate(words):
                 if words[wordNo] = "from" and not self.IsInString(words[wordNo], line)
-                    if words[wordNo + 1] == "native":
+                    if words[wordNo + 1] == "interperter":
                         if words[wordNo + 2] == == "include":
                             words[wordNo] = f"from {words[wordNo + 3]} import *"
         for line in code.splitlines():
@@ -45,10 +45,23 @@ class Parser:
                     with open(includeName.removesuffix(";", + ".fins", "r")) as file:
                         code = file.read() + "\n" + code
         for line in code.splitlines():
-            if "from native include" in line:
-                    if self.IsInString("from native referene ", line, True):
+            if "from interperter include" in line:
+                    if self.IsInString("from interperter include", line, True):
                         continue
                     code = code.replace(line, line.replace("from native include", "import"))
                     words = line.split()
+                    newLine = ""
 
+                    for wordNo, word in enumerate(words):
+                        if words[wordNo] == "from" and not self.IsInString(words[wordNo], line):
+                            if words[wordNo + 1] == "interperter":
+                                if words[wordNo + 2] == "include":
+                                        words[wordNo + 2] = "include"
+                                        words[wordNo] = "include"
+                                        words[wordNo + 2] = ""
+                                        words[wordNo + 2] = ""
+                                        newLine = " ".join(words)
 
+                    if newLine != "":
+                        code = code.replace(line, newLine)
+        return code
