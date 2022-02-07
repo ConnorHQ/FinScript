@@ -1,5 +1,5 @@
 PYTHON = python3
-SOURCE = src/main.py
+SOURCE = src/FinScript.py
 
 all:
-	$(PYTHON) $(SOURCE)
+	$(PYTHON) $(SOURCE) -h
